@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EnvJson": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CI_BUILD_SETTINGS": "{ \"Tests\": { \"Execute\":true, \"ChatId\": 101010, \"Name\": \"Charlie\" } }"
+      }
+    }
+  }
+}
