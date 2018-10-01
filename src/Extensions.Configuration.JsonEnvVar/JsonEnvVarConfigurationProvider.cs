@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text;
 
+// ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.Configuration
 {
     internal class JsonEnvVarConfigurationProvider : ConfigurationProvider
@@ -33,8 +34,10 @@ namespace Microsoft.Extensions.Configuration
             }
 
             byte[] bytes = Encoding.Default.GetBytes(value);
-            var stream = new MemoryStream(bytes);
-            Data = JsonConfigurationFileParser.Parse(stream);
+            using (var stream = new MemoryStream(bytes))
+            {
+                Data = JsonConfigurationFileParser.Parse(stream);
+            }
         }
     }
 }

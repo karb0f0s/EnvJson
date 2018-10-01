@@ -13,9 +13,13 @@ namespace Microsoft.Extensions.Configuration.Json
 {
     internal class JsonConfigurationFileParser
     {
-        private JsonConfigurationFileParser() { }
+        private JsonConfigurationFileParser()
+        {
+        }
 
-        private readonly IDictionary<string, string> _data = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly IDictionary<string, string> _data =
+            new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
         private readonly Stack<string> _context = new Stack<string>();
         private string _currentPath;
 
@@ -75,11 +79,13 @@ namespace Microsoft.Extensions.Configuration.Json
                     break;
 
                 default:
-                    throw new FormatException(Resources.FormatError_UnsupportedJSONToken(
+                    throw new FormatException(string.Format(
+                        "Unsupported JSON token '{0}' was found. Path '{1}', line {2} position {3}.",
                         _reader.TokenType,
                         _reader.Path,
                         _reader.LineNumber,
-                        _reader.LinePosition));
+                        _reader.LinePosition
+                    ));
             }
         }
 
@@ -99,8 +105,9 @@ namespace Microsoft.Extensions.Configuration.Json
 
             if (_data.ContainsKey(key))
             {
-                throw new FormatException(Resources.FormatError_KeyIsDuplicated(key));
+                throw new FormatException($"A duplicate key '{key}' was found.");
             }
+
             _data[key] = data.ToString(CultureInfo.InvariantCulture);
         }
 

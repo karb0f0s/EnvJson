@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Extensions.Configuration
+﻿// ReSharper disable CheckNamespace
+
+namespace Microsoft.Extensions.Configuration
 {
     internal class JsonEnvVarConfigurationSource : IConfigurationSource
     {
